@@ -17,7 +17,7 @@ def lambda_handler(event, context):
         match['start_date_time'] = match['start_date_time'].isoformat()
         print(match)
     headers = {
-        "X-API-KEY": API_KEY,
+        "X-API-KEY": UPDATE_KEY,
         "Content-Type": "application/json"
     }
 
