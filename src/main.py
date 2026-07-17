@@ -9,23 +9,27 @@ FASTAPI_ENDPOINT = os.getenv("FASTAPI_ENDPOINT")
 API_KEY = os.getenv("API_KEY")
 SPORT_KEY = os.getenv("SPORT_KEY")
 ODD_BASE_URL = os.getenv("ODD_BASE_URL")
+ENV = os.getenv("ENV")
 
 def lambda_handler(event, context):
     odds = get_odds()
 
     for match in odds:
         match['start_date_time'] = match['start_date_time'].isoformat()
-        print(match)
+        if ENV == "TEST":
+            print(match)
     headers = {
         "X-API-KEY": UPDATE_KEY,
         "Content-Type": "application/json"
     }
-    print("https://{FASTAPI_ENDPOINT}/odds/update")
-    print(odds)
-    print(headers)
+
     response = requests.put(f"https://{FASTAPI_ENDPOINT}/odds/update", json=odds, headers=headers)
-    print("Status Code:", response.status_code)
-    print("Response Text:", response.text)
+    if ENV == "TEST":
+        print(f"https://{FASTAPI_ENDPOINT}/odds/update")
+        print(odds)
+        print(headers)
+        print("Status Code:", response.status_code)
+        print("Response Text:", response.text)
 def get_odds():
 
     base_url = f"https://{ODD_BASE_URL}"
@@ -70,6 +74,3 @@ def get_odds():
             wedstrijden.append(body)
 
     return wedstrijden
-
-
-lambda_handler(None, None)
