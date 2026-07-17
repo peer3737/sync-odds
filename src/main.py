@@ -28,8 +28,8 @@ def lambda_handler(event, context):
         print(f"https://{FASTAPI_ENDPOINT}/odds/update")
         print(odds)
         print(headers)
-        print("Status Code:", response.status_code)
-        print("Response Text:", response.text)
+    print("Status Code:", response.status_code)
+    print("Response Text:", response.text)
 def get_odds():
 
     base_url = f"https://{ODD_BASE_URL}"
