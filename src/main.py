@@ -20,7 +20,9 @@ def lambda_handler(event, context):
         "X-API-KEY": UPDATE_KEY,
         "Content-Type": "application/json"
     }
-
+    print("https://{FASTAPI_ENDPOINT}/odds/update")
+    print(odds)
+    print(headers)
     response = requests.put(f"https://{FASTAPI_ENDPOINT}/odds/update", json=odds, headers=headers)
     print("Status Code:", response.status_code)
     print("Response Text:", response.text)
